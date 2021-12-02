@@ -132,7 +132,7 @@ lxc-ls -f
 ![](modul2/3e.PNG)
 ```
 [landing]
-ubuntu_landing ansible_host=lxc_landing.dev ansible_ssh_user=root ansible_become_pass=sepasi
+ubuntu_landing ansible_host=lxc_landing.dev ansible_ssh_user=root ansible_become_pass=016765
 ```
 
 - Make a directory and whatever will be used to run the php folder and do the installation
@@ -351,7 +351,7 @@ server {
 ![](modul2/4e.PNG)
 ```
 [blog]
-ubuntu_php7.4 ansible_host=lxc_php7.dev ansible_ssh_user=root ansible_become_pass=sepasi
+ubuntu_php7.4 ansible_host=lxc_php7.dev ansible_ssh_user=root ansible_become_pass=016765
 ```
 
 - Create a directory for tasks, templates and handlers in the wordpress folder. Then, go to the tasks folder to install the package
