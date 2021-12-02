@@ -1,5 +1,14 @@
 # Praktikum Modul 2
 
+**From Group 9 [ IT 02-01 ]**
+
+**Difa Taufiqurahman   1202199005 || Alvyano Rizqilla  1202190035**
+
+------
+
+## Step by Step
+
+------
 1. 
 
 - Check lxc by using the command:
