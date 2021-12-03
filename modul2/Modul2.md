@@ -604,7 +604,7 @@ server {
 
 - Make it ansible and Run ansible
 
-![](modul2/gambar/5c.PNG)
+![](modul2/5c.PNG)
 
 ```
 ---
@@ -641,25 +641,25 @@ server {
 Terms
 Priv
 ```
-![](modul2/gambar/5d.PNG)
+![](modul2/5d.PNG)
 
 - Check by opening vm.local. If successful, it will look like this:
 
-![](modul2/gambar/5e.PNG)
+![](modul2/5e.PNG)
 
 2. Wordpress 
 
 - In the first step, do the same as the first step in laravel. Namely change the configuration file to wordpress.conf And change it like the image below:
 
-![](modul2/gambar/6b.PNG)
+![](modul2/6b.PNG)
 
 - Make it ansible
 
-![](modul2/gambar/6c.PNG)
+![](modul2/6c.PNG)
 
 - Run ansible
 
-![](modul2/gambar/6d.PNG)
+![](modul2/6d.PNG)
 ```
 ---
 - hosts: all
@@ -692,8 +692,8 @@ Priv
      args:
       warn: false
 ```
-![](modul2/gambar/6e.PNG)
+![](modul2/6e.PNG)
 
 - Check by opening vm.local/blog. If successful, it will look like this:
 
-![](modul2/gambar/6f.PNG)
+![](modul2/6f.PNG)
