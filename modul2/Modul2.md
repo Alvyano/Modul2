@@ -1,14 +1,5 @@
 # Praktikum Modul 2
 
-**From Group 9 [ IT 02-01 ]**
-
-**Difa Taufiqurahman   1202199005 || Alvyano Rizqilla  1202190035**
-
-------
-
-## Step by Step
-
-------
 1. 
 
 - Check lxc by using the command:
@@ -23,16 +14,16 @@ lxc-ls -f
 lxc-destroy ubuntu_landing
 ```
 
-![](modul2/1a.PNG)
-![](modul2/1b.PNG)
+![](modul2/1a.png)
+![](modul2/1b.png)
 
  - After creating a new one, use command lxc-start to start ubuntu_landing and use command lxc-attach to open ubuntu_landing. Then use install nano to edit the config.
 
- ![](modul2/1d.PNG)
+ ![](modul2/1d.png)
 
  - Set IP ubuntu_landing
 
-![](modul2/1e.PNG)
+![](modul2/1e.png)
 
  ```
  sudo lxc-start -n ubuntu_landing
@@ -41,15 +32,15 @@ nano /etc/netplan/10-lxc.yaml
 netplan apply
 ```
 
-![](modul2/1f.PNG)
+![](modul2/1f.png)
 
 - Set autostart lxc, as below:
 
-![](modul2/1g.PNG)
+![](modul2/1g.png)
 
 - Install SSH
 
-![](modul2/1h.PNG)
+![](modul2/1h.png)
 
 ```
 PermitRootLogin yes
@@ -57,25 +48,25 @@ RSAAuthentication yes
 service sshd restart
 ```
 
-![](modul2/1i.PNG)
+![](modul2/1i.png)
 
 - Check ssh whether it is running or not
 
 
-![](modul2/1j.PNG)
+![](modul2/1j.png)
 
 2.
 - Check lxc by using
 ```
 lxc-ls -f
 ```
-![](modul2/2a.PNG)
+![](modul2/2a.png)
 
 - Delete ubuntu landing using the command as below, and create a new ubuntu_php7.4 using the lxc-create command
 ```
 lxc-destroy ubuntu_php7.4
 ```
-![](modul2/2b.PNG)
+![](modul2/2b.png)
 ![](modul2/2c.PNG)
 
 
@@ -132,7 +123,7 @@ lxc-ls -f
 ![](modul2/3e.PNG)
 ```
 [landing]
-ubuntu_landing ansible_host=lxc_landing.dev ansible_ssh_user=root ansible_become_pass=016765
+ubuntu_landing ansible_host=lxc_landing.dev ansible_ssh_user=root ansible_become_pass=sepasi
 ```
 
 - Make a directory and whatever will be used to run the php folder and do the installation
@@ -351,12 +342,12 @@ server {
 ![](modul2/4e.PNG)
 ```
 [blog]
-ubuntu_php7.4 ansible_host=lxc_php7.dev ansible_ssh_user=root ansible_become_pass=016765
+ubuntu_php7.4 ansible_host=lxc_php7.dev ansible_ssh_user=root ansible_become_pass=sepasi
 ```
 
 - Create a directory for tasks, templates and handlers in the wordpress folder. Then, go to the tasks folder to install the package
 
-![](modul2/4l.PNG)
+![](modul2/4f.PNG)
 ```
 ---
 - hosts: all
@@ -601,6 +592,112 @@ server {
 ![](modul2/4j.PNG)
 ![](modul2/4k.PNG)
 
+----
 
+# Soal Tambahan
 
+1. Laravel 
 
+- First, change the configuration file lxc_landing
+
+![](modul2/gambar/1a.PNG)
+
+- And change it like the image below:
+
+![](modul2/gambar/1f.PNG)
+
+- Make it ansible and Run ansible
+
+![](modul2/gambar/1c.PNG)
+
+```
+---
+- hosts: all
+  become : yes
+  tasks:
+   - name: mengganti php sock
+     lineinfile:
+      path: /etc/php/7.4/fpm/pool.d/www.conf
+      regexp: '^(.*)listen =(.*)$'
+      line: 'listen = 127.0.0.1:9001'
+      backrefs: yes
+   - name: copy the nginx config file 
+     copy:
+      src: ~/ansible/laravel/lxc_landing.dev
+      dest: /etc/nginx/sites-available/lxc_landing.dev
+   - name: Symlink lxc_landing.dev
+     command: ln -sfn /etc/nginx/sites-available/lxc_landing.dev /etc/nginx/sites-enabled/lxc_landing.dev
+     args:
+      warn: false
+   - name: restart nginx
+     service:
+      name: nginx
+      state: restarted
+   - name: restart php7
+     service:
+      name: php7.4-fpm
+      state: restarted
+   - name: curl web
+     command: curl -i http://lxc_landing.dev
+     args:
+      warn: false
+© 2021 GitHub, Inc.
+Terms
+Priv
+```
+![](modul2/gambar/1d.PNG)
+
+- Check by opening vm.local. If successful, it will look like this:
+
+![](modul2/gambar/1e.PNG)
+
+2. Wordpress 
+
+- In the first step, do the same as the first step in laravel. Namely change the configuration file to wordpress.conf And change it like the image below:
+
+![](modul2/gambar/2b.PNG)
+
+- Make it ansible
+
+![](modul2/gambar/2c.PNG)
+
+- Run ansible
+
+![](modul2/gambar/2d.PNG)
+```
+---
+- hosts: all
+  become : yes
+  tasks:
+   - name: mengganti php sock
+     lineinfile:
+      path: /etc/php/7.4/fpm/pool.d/www.conf
+      regexp: '^(.*)listen =(.*)$'
+      line: 'listen = 127.0.0.1:9001'
+      backrefs: yes
+   - name: copy the nginx config file 
+     copy:
+      src: ~/ansible/wordpress/wordpress.conf
+      dest: /etc/nginx/sites-available/lxc_php7.dev
+   - name: Symlink lxc_php7.dev
+     command: ln -sfn /etc/nginx/sites-available/lxc_php7.dev /etc/nginx/sites-enabled/lxc_php7.dev
+     args:
+      warn: false
+   - name: restart nginx
+     service:
+      name: nginx
+      state: restarted
+   - name: restart php7
+     service:
+      name: php7.4-fpm
+      state: restarted
+   - name: curl web
+     command: curl -i http://lxc_php7.dev
+     args:
+      warn: false
+```
+![](modul2/gambar/2e.PNG)
+
+- Check by opening vm.local/blog. If successful, it will look like this:
+
+![](modul2/gambar/2f.PNG)
