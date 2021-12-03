@@ -356,7 +356,7 @@ ubuntu_php7.4 ansible_host=lxc_php7.dev ansible_ssh_user=root ansible_become_pas
 
 - Create a directory for tasks, templates and handlers in the wordpress folder. Then, go to the tasks folder to install the package
 
-![](modul2/4f.PNG)
+![](modul2/4l.PNG)
 ```
 ---
 - hosts: all
