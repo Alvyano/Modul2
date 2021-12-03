@@ -14,16 +14,16 @@ lxc-ls -f
 lxc-destroy ubuntu_landing
 ```
 
-![](modul2/1a.png)
-![](modul2/1b.png)
+![](modul2/1a.PNG)
+![](modul2/1b.PNG)
 
  - After creating a new one, use command lxc-start to start ubuntu_landing and use command lxc-attach to open ubuntu_landing. Then use install nano to edit the config.
 
- ![](modul2/1d.png)
+ ![](modul2/1d.PNG)
 
  - Set IP ubuntu_landing
 
-![](modul2/1e.png)
+![](modul2/1e.PNG)
 
  ```
  sudo lxc-start -n ubuntu_landing
@@ -32,15 +32,15 @@ nano /etc/netplan/10-lxc.yaml
 netplan apply
 ```
 
-![](modul2/1f.png)
+![](modul2/1f.PNG)
 
 - Set autostart lxc, as below:
 
-![](modul2/1g.png)
+![](modul2/1g.PNG)
 
 - Install SSH
 
-![](modul2/1h.png)
+![](modul2/1h.PNG)
 
 ```
 PermitRootLogin yes
@@ -48,25 +48,25 @@ RSAAuthentication yes
 service sshd restart
 ```
 
-![](modul2/1i.png)
+![](modul2/1i.PNG)
 
 - Check ssh whether it is running or not
 
 
-![](modul2/1j.png)
+![](modul2/1j.PNG)
 
 2.
 - Check lxc by using
 ```
 lxc-ls -f
 ```
-![](modul2/2a.png)
+![](modul2/2a.PNG)
 
 - Delete ubuntu landing using the command as below, and create a new ubuntu_php7.4 using the lxc-create command
 ```
 lxc-destroy ubuntu_php7.4
 ```
-![](modul2/2b.png)
+![](modul2/2b.PNG)
 ![](modul2/2c.PNG)
 
 
@@ -600,15 +600,15 @@ server {
 
 - First, change the configuration file lxc_landing
 
-![](modul2/gambar/1a.PNG)
+![](modul2/5a.PNG)
 
 - And change it like the image below:
 
-![](modul2/gambar/1f.PNG)
+![](modul2/5b.PNG)
 
 - Make it ansible and Run ansible
 
-![](modul2/gambar/1c.PNG)
+![](modul2/gambar/5c.PNG)
 
 ```
 ---
@@ -645,25 +645,25 @@ server {
 Terms
 Priv
 ```
-![](modul2/gambar/1d.PNG)
+![](modul2/gambar/5d.PNG)
 
 - Check by opening vm.local. If successful, it will look like this:
 
-![](modul2/gambar/1e.PNG)
+![](modul2/gambar/5e.PNG)
 
 2. Wordpress 
 
 - In the first step, do the same as the first step in laravel. Namely change the configuration file to wordpress.conf And change it like the image below:
 
-![](modul2/gambar/2b.PNG)
+![](modul2/gambar/6b.PNG)
 
 - Make it ansible
 
-![](modul2/gambar/2c.PNG)
+![](modul2/gambar/6c.PNG)
 
 - Run ansible
 
-![](modul2/gambar/2d.PNG)
+![](modul2/gambar/6d.PNG)
 ```
 ---
 - hosts: all
@@ -696,8 +696,8 @@ Priv
      args:
       warn: false
 ```
-![](modul2/gambar/2e.PNG)
+![](modul2/gambar/6e.PNG)
 
 - Check by opening vm.local/blog. If successful, it will look like this:
 
-![](modul2/gambar/2f.PNG)
+![](modul2/gambar/6f.PNG)
