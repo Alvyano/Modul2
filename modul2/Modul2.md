@@ -7,14 +7,12 @@
 ```
 lxc-ls -f
 ```
-
+![](modul2/1a.PNG)
 - Delete ubuntu landing by using the command as below, and create a new ubuntu focal with lxc-create
 
 ```
 lxc-destroy ubuntu_landing
 ```
-
-![](modul2/1a.PNG)
 ![](modul2/1b.PNG)
 
  - After creating a new one, use command lxc-start to start ubuntu_landing and use command lxc-attach to open ubuntu_landing. Then use install nano to edit the config.
@@ -583,9 +581,7 @@ server {
 }
 ```
 
-- Run ansible again to install
-
-- Open vm.local/blog/ to check whether wordpress is running or not. If it can be run, then the display will change to the following:
+- Run ansible again to install and Open vm.local/blog/ to check whether wordpress is running or not. If it can be run, then the display will change to the following:
 
 ![](modul2/4h.PNG)
 ![](modul2/4i.PNG)
