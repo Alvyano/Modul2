@@ -1,0 +1,20 @@
+server {
+        listen 80;
+
+        root /var/www/html/landing/public;
+        index index.php index.html index.htm;
+        server_name lxc_landing.dev;
+
+        error_log /var/log/nginx/landing_error.log;
+        access_log /var/log/nginx/landing_access.log;
+
+        client_max_body_size 100M;
+        location / {
+                try_files $uri $uri/ /index.php$args;
+        }
+        location ~\.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass 127.0.0.1:9001;
+                fastcgi_param SCRIPTFILENAME $document_root$fastcgi_script_name;
+        }
+}

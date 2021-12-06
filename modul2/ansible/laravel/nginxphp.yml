@@ -1,0 +1,41 @@
+---
+- hosts: all
+  become : yes
+  tasks:
+    - name: install nginx nginx extras
+      apt:
+       pkg:
+         - nginx
+         - nginx-extras
+       state: latest
+    - name: start nginx
+      service:
+       name: nginx
+       state: started
+    - name: menginstall tools
+      apt:
+       pkg:
+         - curl
+         - software-properties-common
+         - unzip
+       state: latest
+    - name: "Repo PHP 7.4"
+      apt_repository:
+        repo="ppa:ondrej/php"
+    - name: "Updating the repo"
+      apt: update_cache=yes
+    - name: Installation PHP 7.4
+      apt: name=php7.4 state=present
+    - name: install php untuk laravel
+      apt:
+       pkg:
+          - php7.4-fpm
+          - php7.4-mysql
+          - php7.4-mbstring
+          - php7.4-xml
+          - php7.4-bcmath
+          - php7.4-json
+          - php7.4-zip
+          - php7.4-common
+       state: present
+

@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become : yes
+  tasks:
+   - name: mengganti php sock
+     lineinfile:
+      path: /etc/php/7.4/fpm/pool.d/www.conf
+      regexp: '^(.*)listen =(.*)$'
+      line: 'listen = 127.0.0.1:9001'
+      backrefs: yes
+   - name: copy the nginx config file 
+     copy:
+      src: ~/ansible/wordpress/wordpress.conf
+      dest: /etc/nginx/sites-available/lxc_php7.dev
+   - name: Symlink lxc_php7.dev
+     command: ln -sfn /etc/nginx/sites-available/lxc_php7.dev /etc/nginx/sites-enabled/lxc_php7.dev
+     args:
+      warn: false
+   - name: restart nginx
+     service:
+      name: nginx
+      state: restarted
+   - name: restart php7
+     service:
+      name: php7.4-fpm
+      state: restarted
+   - name: curl web
+     command: curl -i http://lxc_php7.dev
+     args:
+      warn: false

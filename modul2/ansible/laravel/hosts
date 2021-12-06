@@ -1,0 +1,2 @@
+[landing]
+ubuntu_landing ansible_host=lxc_landing.dev ansible_ssh_user=root ansible_become_pass=016765

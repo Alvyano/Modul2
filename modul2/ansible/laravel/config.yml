@@ -1,0 +1,43 @@
+---
+- hosts: all
+  become : yes
+  vars:
+    domain: 'lxc_landing.dev'
+  tasks:
+   - name: stop apache2
+     service:
+      name: apache2
+      state: stopped
+      enabled: no
+   - name: Write {{ domain }} to /etc/hosts
+     lineinfile:
+      dest: /etc/hosts
+      regexp: '.*{{ domain }}$'
+      line: "127.0.0.1 {{ domain }}"
+      state: present
+   - name: ensure nginx is at the latest version
+     apt: name=nginx state=latest
+   - name: start nginx
+     service:
+      name: nginx
+      state: started
+   - name: copy the nginx config file 
+     copy:
+      src: ~/ansible/laravel/lxc_landing.dev
+      dest: /etc/nginx/sites-available/lxc_landing.dev
+   - name: Symlink lxc_landing.dev
+     command: ln -sfn /etc/nginx/sites-available/lxc_landing.dev /etc/nginx/sites-enabled/lxc_landing.dev
+     args:
+      warn: false
+   - name: restart nginx
+     service:
+      name: nginx
+      state: restarted
+   - name: restart php7
+     service:
+      name: php7.4-fpm
+      state: restarted
+   - name: curl web
+     command: curl -i http://lxc_landing.dev
+     args:
+      warn: false
